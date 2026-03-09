@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle, MapPin, Phone } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Send, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { buttonVariants } from "@/lib/button-variants";
 import { cn } from "@/lib/utils";
 
 const goalOptions = [
@@ -17,9 +17,9 @@ const goalOptions = [
 ];
 
 export function ContactForm() {
-  const [form, setForm]           = useState({ name: "", phone: "", goal: "" });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading]     = useState(false);
+  const router = useRouter();
+  const [form, setForm]       = useState({ name: "", phone: "", goal: "" });
+  const [loading, setLoading] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -28,9 +28,8 @@ export function ContactForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 900));
-    setLoading(false);
-    setSubmitted(true);
+    await new Promise((r) => setTimeout(r, 800));
+    router.push("/thank-you");
   }
 
   return (
@@ -104,25 +103,7 @@ export function ContactForm() {
 
           {/* Right column — form */}
           <div>
-            {submitted ? (
-              <div className="flex flex-col items-center gap-4 rounded-2xl border border-zinc-700 bg-zinc-800/50 p-10 text-center">
-                <CheckCircle className="h-16 w-16 text-green-500" />
-                <h3 className="text-2xl font-bold text-white">קיבלתי את פנייתך!</h3>
-                <p className="text-zinc-400">
-                  אחזור אליך בהקדם האפשרי. מחכה לדבר איתך 💪
-                </p>
-                <button
-                  onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", goal: "" }); }}
-                  className={cn(
-                    buttonVariants({ variant: "outline" }),
-                    "mt-2 border-zinc-600 text-zinc-300 hover:border-[#FF5733] hover:text-[#FF5733] bg-transparent",
-                  )}
-                >
-                  שלח פנייה נוספת
-                </button>
-              </div>
-            ) : (
-              <form
+            <form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-5 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8 shadow-xl shadow-black/30 backdrop-blur"
               >
@@ -203,7 +184,6 @@ export function ContactForm() {
                   הפרטים שלך שמורים אצלנו בסודיות מוחלטת.
                 </p>
               </form>
-            )}
           </div>
         </div>
       </div>
