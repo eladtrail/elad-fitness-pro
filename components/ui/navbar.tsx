@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Dumbbell } from "lucide-react";
 import { buttonVariants } from "@/lib/button-variants";
 import { cn } from "@/lib/utils";
+import { TikTokIcon } from "@/components/ui/tiktok-icon";
 
 const navLinks = [
   { href: "#home",     label: "בית" },
@@ -58,16 +59,27 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <Link
-          href="#contact"
-          className={cn(
-            buttonVariants({ variant: "default" }),
-            "hidden md:inline-flex bg-orange-500 hover:bg-orange-400 text-white font-semibold shadow-md shadow-orange-900/30",
-          )}
-        >
-          התחל עכשיו
-        </Link>
+        {/* TikTok + CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <a
+            href="https://www.tiktok.com/@eladtrail"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+            className="text-zinc-400 hover:text-white transition-colors"
+          >
+            <TikTokIcon className="h-5 w-5" />
+          </a>
+          <Link
+            href="#contact"
+            className={cn(
+              buttonVariants({ variant: "default" }),
+              "bg-orange-500 hover:bg-orange-400 text-white font-semibold shadow-md shadow-orange-900/30",
+            )}
+          >
+            התחל עכשיו
+          </Link>
+        </div>
 
         {/* Mobile toggle */}
         <button
@@ -105,6 +117,15 @@ export function Navbar() {
           >
             התחל עכשיו
           </Link>
+          <a
+            href="https://www.tiktok.com/@eladtrail"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mt-2"
+          >
+            <TikTokIcon className="h-4 w-4" />
+            TikTok
+          </a>
         </div>
       )}
     </nav>

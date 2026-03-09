@@ -28,7 +28,9 @@ export function ContactForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((r) => setTimeout(r, 600));
+    const msg = `היי אלעד! 👋\n\nשם: ${form.name}\nטלפון: ${form.phone}\nמטרה: ${form.goal}\n\nנשלח מהאתר 💪`;
+    window.open(`https://wa.me/972526480383?text=${encodeURIComponent(msg)}`, "_blank");
     router.push("/thank-you");
   }
 
